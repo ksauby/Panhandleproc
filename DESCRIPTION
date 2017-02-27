@@ -1,0 +1,20 @@
+Package: Panhandleproc
+Title: Data processing functions for Panhandle data.
+Version: 0.0.0.9000
+Authors@R: person("Kristen", "Sauby", email = "ksauby@gmail.com", role = c("aut", "cre"))
+Description: Functions for processing of Panhandle data.
+Depends:
+    R (>= 3.3.2)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    magrittr,
+    utils,
+    data.table,
+    reshape2,
+    rgdal
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
