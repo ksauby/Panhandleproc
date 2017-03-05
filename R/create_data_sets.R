@@ -10,6 +10,7 @@
 #' @param timeseries Dataset
 #' 
 #' @export
+#' @importFrom GTMNERRproc createNewInsectVariables
 
 createAllSurveysDataset <- function(timeseries) {
 	timeseries_all_surveys <- timeseries
