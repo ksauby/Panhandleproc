@@ -21,10 +21,6 @@ createAllSurveysDataset <- function(timeseries) {
 			grouping.variable="PlantID"
 		) %>%
 		calculateDateLags %>%
-		createNewInsectVariables(
-			arrange.variable="Date", 
-			grouping.variable="PlantID"
-		) %>%
 		calculateInsectLags(
 			arrange.variable="Date", 
 			grouping.variable="PlantID"
@@ -253,14 +249,11 @@ createFruitYearDataset <- function(timeseries) {
 			complete_insect_surveys = min(complete_insect_surveys), 
 			complete_surveys		= min(complete_surveys)
 		) %>%
-		createNewInsectVariables(
-			arrange.variable="ObsYear", 
-			grouping.variable="PlantID"
-		) %>%
 		# lag variables
-		calculateSizeLags(
+		calculateLagGroupedDF(
 			arrange.variable="ObsYear", 
-			grouping.variable="PlantID"
+			grouping.variable="PlantID",
+			vars="Size_max_t"
 		) %>%
 		calculateFruitLags(
 			arrange.variable="ObsYear", 
