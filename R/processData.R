@@ -21,12 +21,23 @@
 #' @import data.table
 
 processData <- function(dataset) {
-	# read in data
-	timeseries <- dataset %>% as.data.table
-	# rename Mexico Beach and Sweetwater
-	timeseries[Location == "MexicoBeach", 	Location := "MB"]
-	timeseries[Location == "Sweetwater", 	Location := "TSP"]
-	timeseries[Location == "Nokuse",	 	Location := "NP"]
+	timeseries %<>% mutate(
+		Location = replace(
+			Location,
+			which(Location=="MexicoBeach"),
+			"MB"
+		),
+		Location = replace(
+			Location,
+			which(Location=="Sweetwater"),
+			"TSP"
+		),
+		Location = replace(
+			Location,
+			which(Location=="Nokuse"),
+			"NP"
+		)
+	)
 	# create unique PlantID variable
 	timeseries %<>% mutate(PlantID = paste(Location, ID, sep=""))
 	# remame column namesnames
@@ -40,9 +51,18 @@ processData <- function(dataset) {
 		setnames("Width", "Width_t") %>%
 		setnames("Fruit", "Fruit_t")
 	# Rename Species factor labels
-	timeseries %<>% as.data.table
-	timeseries[Species == "humifusa", Species := "Opuntia humifusa"]
-	timeseries[Species == "stricta", Species := "Opuntia stricta"]
+	timeseries %<>% mutate(
+		Species = replace(
+			Species,
+			which(Species=="humifusa"),
+			"Opuntia humifusa"
+		),
+		Species = replace(
+			Species,
+			which(Species=="stricta"),
+			"Opuntia stricta"
+		)
+	)
 	# format as factor
 	timeseries$Location %<>% as.factor
 	timeseries$Species %<>% as.factor
@@ -54,8 +74,9 @@ processData <- function(dataset) {
 		# There should never be observations of 0 pads, 0 height, or 0 width
 		# replace 0 with NA
 	cnames <- c("Size_t", "Height_t", "Width_t")
+	timeseries %<>% as.data.table
 	for (cname in cnames) {
-		timeseries[, cname := Zero_is_NA_Function(timeseries[[cname]]), with=FALSE]
+		timeseries[, (cname) := Zero_is_NA_Function(timeseries[[cname]])]
 	}
 	############################################################################
 	# Process TIME
@@ -184,11 +205,10 @@ processData <- function(dataset) {
 	############################################################################
 	# Calculate Volume
 	############################################################################
-	timeseries %<>% 
-		mutate(
-			Cone_t = pi * (((Width_t)/4)^2) * Height_t / 3,
-			Cylinder_Tall_t = pi * ((Width_t/2)^2) * Height_t
-		)
+	timeseries %<>% mutate(
+		Cone_t = pi * (((Width_t)/4)^2) * Height_t / 3,
+		Cylinder_Tall_t = pi * ((Width_t/2)^2) * Height_t
+	)
 	############################################################################
 	# Create PlantID2
 	############################################################################
