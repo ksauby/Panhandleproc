@@ -42,10 +42,10 @@ removeData <- function(timeseries) {
 		filter(!(PlantID == "HBSPOS5" & Date > "2011-05-16")) %>%
 		# Remove Mexico Beach OS3
 		# 		I don't know if this is always the same plant being surveyed
-		filter(!(PlantID == "MBOS3")) %>%
+		filter(!(PlantID == "MBOS3")) %>% # throw out, based on John's email 1/15/15
 		# these were multiple plants counted as one
-		filter(!(PlantID == "BLSPOH1")) %>%
-		filter(!(PlantID == "BLSPOH3")) %>%
+		filter(!(PlantID == "BLSPOH1")) %>% # throw out, based on John's email 1/15/15
+		filter(!(PlantID == "BLSPOH3")) %>% # throw out, based on John's email 1/15/15
 		# not sure if this was from parent OH1 or not
 		filter(!(PlantID == "NPOH1A"))
 	#----------------------------------------------------------------------#
