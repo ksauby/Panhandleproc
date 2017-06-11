@@ -43,7 +43,7 @@ processData <- function(dataset) {
 	# remame column namesnames
 	timeseries %<>%
 		setnames("Height", "Height_t") %>%
-		setnames("Pads", "Size_t") %>%
+		setnames("Segments", "Size_t") %>%
 		setnames("MEPR", "ME_t") %>%
 		setnames("CACA", "CA_t") %>%
 		setnames("DACT", "DA_t") %>%
@@ -71,7 +71,7 @@ processData <- function(dataset) {
 		# timeseries[timeseries$PlantHeight_t==0, ]
 		# timeseries[timeseries$Width_t==0, ]
 
-		# There should never be observations of 0 pads, 0 height, or 0 width
+		# There should never be observations of 0 segments, 0 height, or 0 width
 		# replace 0 with NA
 	cnames <- c("Size_t", "Height_t", "Width_t")
 	timeseries %<>% as.data.table
