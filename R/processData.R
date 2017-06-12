@@ -88,12 +88,13 @@ processData <- function(dataset) {
 			MonthYear 		= as.character(as.yearmon(Date)),
 			DaysSinceStart 	= as.numeric(Date - min(Date)),
 			VisitNum 		= 0
-		)	 
+		) %>% 
+		as.data.frame
 	########################## ERROR MESSAGE
 	# check first duplicate data entries
 	dups <- timeseries %>% 
 		group_by(Location, ID, Date) %>%
-		summarise(n.obs = length(Species)) %>%
+		dplyr::summarise(n.obs = length(Species)) %>%
 		filter(n.obs > 1)
 
 	if (dim(dups)[1] > 0) {
