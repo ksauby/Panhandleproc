@@ -12,8 +12,8 @@
 findClosestWeatherStations <- function(sites, climate_data, Distance=85) {
 	# merge sampling locations and weather station locations to calculate distance matrix (all pairwise distances among points)
 	A <- sites %>%
-		select(Location.name, Latitude, Longitude) %>%
-		rbind.fill(select(wstations, Name, Latitude, Longitude))
+		dplyr::select(Location.name, Latitude, Longitude) %>%
+		rbind.fill(dplyr::select(wstations, Name, Latitude, Longitude))
 	# first convert sampling locations and weather station coordinates to UTM
 	coordinates(A) <- c("Longitude", "Latitude")
 	proj4string(A) <- CRS("+proj=longlat +datum=WGS84")  ## for example
@@ -40,8 +40,7 @@ findClosestWeatherStations <- function(sites, climate_data, Distance=85) {
 	distance_matrix <- distance_matrix[7:206, 1:6]
 	names(distance_matrix) <- Location_list
 	# merge distance matrix with weather station info
-	B <- select(
-		wstations, 
+	B <- wstations %>% dplyr::select(
 		Name, 
 		Station.ID, 
 		Latitude, 

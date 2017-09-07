@@ -2,7 +2,6 @@
 
 export(createAllSurveysDataset)
 export(createFruitYearDataset)
-export(createObsYear)
 export(createSurvivalDataset)
 export(findClosestWeatherStations)
 export(keepUSDAData)

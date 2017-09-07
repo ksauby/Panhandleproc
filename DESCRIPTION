@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: person("Kristen", "Sauby", email = "ksauby@gmail.com", role = c("aut", "cre"))
 Description: Functions for processing of Panhandle data.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.3.2), sp
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
